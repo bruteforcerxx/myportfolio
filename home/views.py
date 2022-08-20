@@ -22,9 +22,10 @@ def home_page(request):
     message = 'You had a new visit to your website portfolio'
     button_link = ''
     button_text = 'Visit site'
+    preheader_text = 'New website visit'
     buttom_message = ''
     context = {'name': name, 'message': message, 'button_link': button_link, 'button_text': button_text,
-    'buttom_message': buttom_message}
+    'buttom_message': buttom_message, 'preheader_text': preheader_text}
     subject = 'portfolio visit'
     destination = 'olumichael2015@outlook.com'
     template = 'email.html'
