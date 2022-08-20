@@ -144,10 +144,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-host = 'olumichael2015x@outlook.com'
-password = 'Xenonsugar1#'
+host = 'olumichael2015@outlook.com'
+password = 'Xenonsugar1'
 
-DEFAULT_FROM_EMAIL = "My Portfolio <olumichael2015x@outlook.com>"
+DEFAULT_FROM_EMAIL = "My Portfolio <olumichael2015@outlook.com>"
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.office365.com'
 EMAIL_HOST_PASSWORD = password
