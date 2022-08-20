@@ -20,7 +20,7 @@ def home_page(request):
     request.session.flush()
     name = 'Michael'
     message = 'You had a new visit to your website portfolio'
-    button_link = 'https://michaelolu.herokuapp.com'
+    button_link = ''
     button_text = 'Visit site'
     buttom_message = ''
     context = {'name': name, 'message': message, 'button_link': button_link, 'button_text': button_text,
