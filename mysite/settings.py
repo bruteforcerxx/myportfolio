@@ -145,7 +145,7 @@ MEDIA_URL = '/media/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 host = 'olumichael2015x@outlook.com'
-password = 'Xenonsugar1'
+password = 'Xenonsugar1#'
 
 DEFAULT_FROM_EMAIL = "My Portfolio <olumichael2015x@outlook.com>"
 EMAIL_USE_TLS = True
