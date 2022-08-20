@@ -28,6 +28,7 @@ def home_page(request):
     subject = 'portfolio visit'
     destination = 'olumichael2016x@gmail.com'
     template = 'email.html'
+    print('###########################sending mail.....#######################################')
     print(send_emailerr(context, subject, destination, template))
     page = 'index.html'
     template = loader.get_template(page)
