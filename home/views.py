@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from rest_framework import status
 from django.template import loader
 from rest_framework.decorators import api_view
+from threading import Thread
 from django.shortcuts import redirect
 import random
 from django.contrib.auth.models import User
@@ -18,6 +19,7 @@ from .emailerr import send_emailerr  # requires parameters context, subject, des
 @api_view(['GET'])
 def home_page(request):
     request.session.flush()
+    #send mail
     name = 'Michael'
     message = 'You had a new visit to your website portfolio'
     button_link = ''
@@ -30,7 +32,10 @@ def home_page(request):
     destination = 'olumichael2015@outlook.com'
     template = 'email.html'
     print('###########################sending mail.....#######################################')
-    print(send_emailerr(context, subject, destination, template))
+    new_thrd = Thread(target=send_emailerr, args=(context,  subject, destination, template))
+    new_thrd.start()
+    # end send mail
+    print('loading template....')
     page = 'index.html'
     template = loader.get_template(page)
     context = {}
