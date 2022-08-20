@@ -26,7 +26,7 @@ def home_page(request):
     context = {'name': name, 'message': message, 'button_link': button_link, 'button_text': button_text,
     'buttom_message': buttom_message}
     subject = 'portfolio visit'
-    destination = 'olumichael2016x@gmail.com'
+    destination = 'olumichael2015@outlook.com'
     template = 'email.html'
     print('###########################sending mail.....#######################################')
     print(send_emailerr(context, subject, destination, template))
