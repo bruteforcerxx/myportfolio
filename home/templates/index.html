@@ -1,0 +1,32 @@
+﻿{% extends '_header_.html' %}
+{% load static %}
+{% block content %}
+<!-- Header Ends -->
+<!-- Main Content Starts -->
+<section class="container-fluid main-container container-home p-0 revealator-slideup revealator-once revealator-delay1">
+    <div class="color-block d-none d-lg-block"></div>
+    <div class="row home-details-container align-items-center">
+        <div class="col-lg-4 bg position-fixed d-none d-lg-block"></div>
+        <div class="col-12 col-lg-8 offset-lg-4 home-details text-left text-sm-center text-lg-left">
+            <div>
+                <img src="{% static 'img/2.jpg' %}" class="img-fluid main-img-mobile d-sm-block d-lg-none" alt="my picture" />
+
+                <div>
+                    <img style="margin-top: 0px" src="{% static 'img/python.png' %}" class="row" alt="my picture" height="30" width="30"/>
+                    <img style="margin-top: 10px" src="{% static 'img/djang.png' %}" class="row" alt="my picture" height="30" width="30"/>
+                    <img style="margin-top: 5px" src="{% static 'img/html.png' %}" class="row" alt="my picture" height="30" width="30"/>
+                    <img style="margin-top: 5px" src="{% static 'img/css.png' %}" class="row" alt="my picture" height="30" width="30"/>
+                </div>
+
+                <h1 class="text-uppercase poppins-font">I'm Michael Olu.<span>Web developer | Mechanical Engineer</span></h1>
+                <p class="open-sans-font">I'm a Nigerian based Python & Website developer focused on building clean & user‑friendly experiences, I am passionate about building excellent software that improves the lives of those around me.</p>
+                <a class="button" href="{% url 'about' %}">
+                    <span class="button-text">more about me</span>
+                    <span class="button-icon fa fa-arrow-right"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Main Content Ends -->
+{% endblock %}
