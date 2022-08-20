@@ -149,8 +149,8 @@ password = 'Xenonsugar1#'
 
 DEFAULT_FROM_EMAIL = "My Portfolio <olumichael2015@outlook.com>"
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.office365.com'
+EMAIL_HOST = 'outlook.office365.com'
 EMAIL_HOST_PASSWORD = password
 EMAIL_HOST_USER = host
-EMAIL_PORT = 587
+EMAIL_PORT = 995
 
