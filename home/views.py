@@ -29,7 +29,7 @@ def about(request):
     request.session.flush()
     page = 'about.html'
     template = loader.get_template(page)
-    context = {}
+    context = {'resume': 'media/resume.pdf'}
     return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
 
 
