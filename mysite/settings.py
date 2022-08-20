@@ -144,7 +144,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-host = 'olumichael2015@outlook.com'
+host = 'olumichael2016@gmail.com'
 password = 'Xenonsugar1'
 
 DEFAULT_FROM_EMAIL = "My Portfolio <office@alphadexltd.com>"
