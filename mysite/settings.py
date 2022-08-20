@@ -144,11 +144,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-host = 'example@example.com'
-password = ''
-name = ''
+host = 'office@alphadexltd.com'
+password = 'Xenonsugar1'
 
-DEFAULT_FROM_EMAIL = f'{name} <{host}>'
+DEFAULT_FROM_EMAIL = "My Portfolio <office@alphadexltd.com>"
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'mail.privateemail.com'
 EMAIL_HOST_PASSWORD = password

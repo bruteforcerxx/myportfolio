@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.core import mail
-from .email import send_email  # requires parameters context, subject, destination, template
+from .emailerr import send_emailerr  # requires parameters context, subject, destination, template
 # from .models import UsersData, Contact
 # from dash.models import Account
 # Create your views here.
@@ -18,6 +18,17 @@ from .email import send_email  # requires parameters context, subject, destinati
 @api_view(['GET'])
 def home_page(request):
     request.session.flush()
+    name = 'Michael'
+    message = 'You had a new visit to your website portfolio'
+    button_link = 'https://michaelolu.herokuapp.com'
+    button_text = 'Visit site'
+    buttom_message = ''
+    context = {'name': name, 'message': message, 'button_link': button_link, 'button_text': button_text,
+    'buttom_message': buttom_message}
+    subject = 'portfolio visit'
+    destination = 'olumichael2016x@gmail.com'
+    template = 'email.html'
+    print(send_emailerr(context, subject, destination, template))
     page = 'index.html'
     template = loader.get_template(page)
     context = {}
@@ -75,6 +86,22 @@ def blog_post(request):
     page = 'blog_post.html'
     template = loader.get_template(page)
     context = {}
+    return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def test(request):
+    request.session.flush()
+    page = 'email.html'
+    template = loader.get_template(page)
+    name = 'Michael'
+    message = 'this is a test message'
+    button_link = 'https://michaelolu.herokuapp.com'
+    button_text = 'Visit site'
+    buttom_message = 'This is a message'
+    context = {'name': name, 'message': message, 'button_link': button_link, 'button_text': button_text,
+    'buttom_message': buttom_message}
+
     return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
 
 
