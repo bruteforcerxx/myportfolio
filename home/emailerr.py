@@ -5,27 +5,19 @@ import folium
 from ipware import get_client_ip
 import geocoder
 from .models import VisitorData
+from os.path import exists
 # Create your views here.
 
 
 def report(context, request):
-    # ip, is_routable = get_client_ip(request)
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    alter = request.META.get('REMOTE_ADDR')
-    print(f'##############forwarded for.......{x_forwarded_for}')
-    print(f'##############alternate IP.......{alter}')
-    if x_forwarded_for:
-        print('#######forwarded for########')
-        ip = x_forwarded_for.split(',')[0]
+    ip, is_routable = get_client_ip(request)
+    if ip is None:
+        ips = geocoder.ip("me")
     else:
-        print()
-        ip = request.META.get('REMOTE_ADDR')
-
-    ips = geocoder.ip(ip)
-    ip2 = geocoder.ip(alter)
-    print(f'city for alter ip{ip2.city}')
-    print(f'country for alter ip{ip2.country}')
-
+        if is_routable:
+            ips = geocoder.ip(ip)
+        else:
+            ips = geocoder.ip("me")
 
     print(ips.city)
     print(ips.country)
@@ -58,8 +50,11 @@ def mapper(location):
     my_map3 = folium.Map(location=location, zoom_start=15)
     folium.Marker(location, popup=' Visitors location ').add_to(my_map3)
     map = 'map.html'
-    my_map3.save(f"home\\templates\\maps\\{map}")
+    my_map3.save(f"home\\templates\\{map}")
+    check = exists("home\\templates\\map.html")
     print('map generated.')
+    print(f'###################map exists is {check}')
+
 
 
 def send_emailerr(context, subject, destination, template):

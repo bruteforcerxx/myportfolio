@@ -48,7 +48,7 @@ def home_page(request):
 @api_view(['GET'])
 def map_view(request):
     request.session.flush()
-    page = 'maps/map.html'
+    page = 'map.html'
     template = loader.get_template(page)
     context = {'resume': 'media/resume.pdf'}
     return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
