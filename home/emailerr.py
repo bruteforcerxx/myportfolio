@@ -9,16 +9,12 @@ from .models import VisitorData
 
 
 def report(context, request):
-    ip, is_routable = get_client_ip(request)
-    if ip is None:
-        print('IP not available')
+    # ip, is_routable = get_client_ip(request)
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
     else:
-        # We got the client's IP address
-        if is_routable:
-            print(ip, is_routable)
-        # The client's IP address is publicly routable on the Internet
-        else:
-            print(ip, is_routable)
+        ip = request.META.get('REMOTE_ADDR')
 
     ips = geocoder.ip("me")
     print(ips.city)
@@ -30,15 +26,18 @@ def report(context, request):
 
     visitor = VisitorData.objects.filter(ip=ip)
     print(visitor)
-    message = f"""You had a new visit to your website
-    Visitors IP: {ip}
-    Visitors Country: {ips.country}
-    Visitor's City: {ips.city}
-
-    This IP has visited your website {len(visitor)} time(s)."""
+    message = f"""You had a new visit to your website"""
     print(message)
+    v_ip = f'Visitors IP: {ip}'
+    v_country = f'Visitors Country: {ips.country}'
+    v_city = f'Visitors Country: {ips.country}'
+    v_fre = f'This IP has visited your website {len(visitor)} time(s).'
 
     context[0]['message'] = message
+    context[0]['v_ip'] = v_ip
+    context[0]['v_country'] = v_country
+    context[0]['v_city'] = v_city
+    context[0]['v_fre'] = v_fre
     context[0]['button_link'] = 'https://michaelolu.herokuapp.com/map_view'
 
     send_emailerr(context[0], context[1], context[2], context[3])
