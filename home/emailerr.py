@@ -6,6 +6,8 @@ from ipware import get_client_ip
 import geocoder
 from .models import VisitorData
 from os.path import exists
+import os
+from django.core.files.storage import FileSystemStorage
 # Create your views here.
 
 
@@ -49,12 +51,13 @@ def mapper(location):
     print('generating map..')
     my_map3 = folium.Map(location=location, zoom_start=15)
     folium.Marker(location, popup=' Visitors location ').add_to(my_map3)
-    map = 'map.html'
-    my_map3.save(f"home\\templates\\{map}")
-    check = exists("home\\templates\\map.html")
+    cwd = os.getcwd()
+    dir = f"{cwd}\\home\\templates\\map.html"
+    print(dir)
+    my_map3.save(dir)
+    check = exists(f"{cwd}\\home\\templates\\map.html")
     print('map generated.')
     print(f'###################map exists is {check}')
-
 
 
 def send_emailerr(context, subject, destination, template):
