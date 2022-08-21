@@ -11,9 +11,14 @@ from .models import VisitorData
 def report(context, request):
     # ip, is_routable = get_client_ip(request)
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    ip = request.META.get('REMOTE_ADDR')
+    print(f'##############forwarded for.......{x_forwarded_for}')
+    print(f'##############alternate IP.......{ip}')
     if x_forwarded_for:
+        print('#######forwarded for########')
         ip = x_forwarded_for.split(',')[0]
     else:
+        print()
         ip = request.META.get('REMOTE_ADDR')
 
     ips = geocoder.ip("me")
@@ -28,10 +33,10 @@ def report(context, request):
     print(visitor)
     message = f"""You had a new visit to your website"""
     print(message)
-    v_ip = f'Visitors IP: {ip}'
-    v_country = f'Visitors Country: {ips.country}'
-    v_city = f'Visitors Country: {ips.country}'
-    v_fre = f'This IP has visited your website {len(visitor)} time(s).'
+    v_ip = f"Visitor's IP: {ip}"
+    v_country = f"Visitor's Country: {ips.country}"
+    v_city = f"Visitor's City: {ips.city}"
+    v_fre = f"This IP has visited your website {len(visitor)} time(s)."
 
     context[0]['message'] = message
     context[0]['v_ip'] = v_ip
