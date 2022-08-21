@@ -11,7 +11,9 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.core import mail
 from .emailerr import report  # requires parameters context, subject, destination, template
-# from .models import UsersData, Contact
+import folium
+from folium import plugins
+from .models import VisitorData
 # from dash.models import Account
 # Create your views here.
 
@@ -47,10 +49,20 @@ def home_page(request):
 
 @api_view(['GET'])
 def map_view(request):
-    request.session.flush()
+    v = VisitorData.objects.all()
+    location = eval(v[len(v) - 1].latlng)
+
+    print(location)
+    my_map3 = folium.Map(location=location, zoom_start=15)
+    folium.Marker(location, popup="Last Visitor's location").add_to(my_map3)
+
+    folium.plugins.Fullscreen().add_to(my_map3)
+
     page = 'map.html'
+    m = my_map3._repr_html_()
+
     template = loader.get_template(page)
-    context = {'resume': 'media/resume.pdf'}
+    context = {'map': m}
     return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
 
 

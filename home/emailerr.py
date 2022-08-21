@@ -1,7 +1,6 @@
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.core import mail
-import folium
 from ipware import get_client_ip
 import geocoder
 from .models import VisitorData
@@ -23,45 +22,36 @@ def report(context, request):
 
     print(ips.city)
     print(ips.country)
-    print(ips.latlng)
-    mapper(ips.latlng)
-    visitor = VisitorData(ip=ip)
+
+    visitor = VisitorData.objects.filter(ip=ip)
+    x = float(len(visitor))
+    print(x)
+    ltg = str(ips.latlng)
+    print(ltg)
+
+    visitor = VisitorData(ip=ip, latlng=ltg, sn=x)
     visitor.save()
 
     visitor = VisitorData.objects.filter(ip=ip)
     print(visitor)
+    all_visit = VisitorData.objects.all()
     message = f"""You had a new visit to your website"""
     print(message)
     v_ip = f"Visitor's IP: {ip}"
     v_country = f"Visitor's Country: {ips.country}"
     v_city = f"Visitor's City: {ips.city}"
     v_fre = f"This IP has visited your website {len(visitor)} time(s)."
+    v_total = f"You have a total of {len(all_visit)} visits to your portfolio"
 
     context[0]['message'] = message
     context[0]['v_ip'] = v_ip
     context[0]['v_country'] = v_country
     context[0]['v_city'] = v_city
     context[0]['v_fre'] = v_fre
+    context[0]['v_total'] = v_total
     context[0]['button_link'] = 'https://michaelolu.herokuapp.com/map_view'
 
     send_emailerr(context[0], context[1], context[2], context[3])
-
-
-def mapper(location):
-    print('generating map..')
-    my_map3 = folium.Map(location=location, zoom_start=15)
-    folium.Marker(location, popup=' Visitors location ').add_to(my_map3)
-
-    dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    path = os.path.join(dir, 'media')
-
-    cwd = os.getcwd()
-    dir = f"{path}\\map.html"
-    print(dir)
-    my_map3.save(dir)
-    check = exists(dir)
-    print('map generated.')
-    print(f'###################map exists is {check}')
 
 
 def send_emailerr(context, subject, destination, template):
