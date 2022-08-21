@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.core import mail
-from .emailerr import send_emailerr  # requires parameters context, subject, destination, template
+from .emailerr import report  # requires parameters context, subject, destination, template
 # from .models import UsersData, Contact
 # from dash.models import Account
 # Create your views here.
@@ -19,26 +19,38 @@ from .emailerr import send_emailerr  # requires parameters context, subject, des
 @api_view(['GET'])
 def home_page(request):
     request.session.flush()
+
     #send mail
     name = 'Michael'
     message = 'You had a new visit to your website portfolio'
     button_link = ''
-    button_text = 'Visit site'
+    button_text = 'View location on map'
     preheader_text = 'New website visit'
-    buttom_message = ''
+    buttom_message = 'This email is a report sent from your portfolio website.'
     context = {'name': name, 'message': message, 'button_link': button_link, 'button_text': button_text,
     'buttom_message': buttom_message, 'preheader_text': preheader_text}
     subject = 'portfolio visit'
     destination = 'olumichael2015@outlook.com'
     template = 'email.html'
     print('###########################sending mail.....#######################################')
-    new_thrd = Thread(target=send_emailerr, args=(context,  subject, destination, template))
+    context = [context,  subject, destination, template]
+    new_thrd = Thread(target=report, args=(context, request))
     new_thrd.start()
     # end send mail
+
     print('loading template....')
     page = 'index.html'
     template = loader.get_template(page)
     context = {}
+    return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def map_view(request):
+    request.session.flush()
+    page = 'maps/map.html'
+    template = loader.get_template(page)
+    context = {'resume': 'media/resume.pdf'}
     return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
 
 
@@ -99,16 +111,9 @@ def blog_post(request):
 @api_view(['GET'])
 def test(request):
     request.session.flush()
-    page = 'email.html'
+    page = 'my_map3.html'
     template = loader.get_template(page)
-    name = 'Michael'
-    message = 'this is a test message'
-    button_link = 'https://michaelolu.herokuapp.com'
-    button_text = 'Visit site'
-    buttom_message = 'This is a message'
-    context = {'name': name, 'message': message, 'button_link': button_link, 'button_text': button_text,
-    'buttom_message': buttom_message}
-
+    context = {}
     return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
 
 
