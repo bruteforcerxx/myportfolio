@@ -51,11 +51,15 @@ def mapper(location):
     print('generating map..')
     my_map3 = folium.Map(location=location, zoom_start=15)
     folium.Marker(location, popup=' Visitors location ').add_to(my_map3)
+
+    dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    path = os.path.join(dir, 'media')
+
     cwd = os.getcwd()
-    dir = f"{cwd}\\media\\map.html"
+    dir = f"{path}\\map.html"
     print(dir)
     my_map3.save(dir)
-    check = exists(f"{cwd}\\media\\map.html")
+    check = exists(dir)
     print('map generated.')
     print(f'###################map exists is {check}')
 
