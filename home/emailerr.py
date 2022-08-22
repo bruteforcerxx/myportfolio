@@ -20,18 +20,11 @@ def report(context, request):
         else:
             ips = geocoder.ip("me")
 
-    print(ips.city)
-    print(ips.country)
-
     visitor = VisitorData.objects.filter(ip=ip)
     x = float(len(visitor))
-    print(x)
     ltg = str(ips.latlng)
-    print(ltg)
-
     visitor = VisitorData(ip=ip, latlng=ltg, sn=x)
     visitor.save()
-
     visitor = VisitorData.objects.filter(ip=ip)
     print(visitor)
     all_visit = VisitorData.objects.all()

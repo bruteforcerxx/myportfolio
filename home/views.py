@@ -57,10 +57,8 @@ def map_view(request):
     folium.Marker(location, popup="Last Visitor's location").add_to(my_map3)
 
     folium.plugins.Fullscreen().add_to(my_map3)
-
     page = 'map.html'
     m = my_map3._repr_html_()
-
     template = loader.get_template(page)
     context = {'map': m}
     return HttpResponse(template.render(context, request), status=status.HTTP_200_OK)
